@@ -1,0 +1,56 @@
+name: Update README
+
+on:
+  push:
+    branches:
+      - master
+
+permissions:
+  contents: write
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Update README
+        run: |
+          echo "## Latest Commit" > /tmp/update.md
+          echo "" >> /tmp/update.md
+          echo "- **Commit:** ${{ github.event.head_commit.message }}" >> /tmp/update.md
+          echo "- **Author:** ${{ github.event.head_commit.author.name }}" >> /tmp/update.md
+          echo "- **Date:** $(date -u)" >> /tmp/update.md
+          echo "" >> /tmp/update.md
+
+          if [ -f package.json ]; then
+            echo "## Installed Packages" >> /tmp/update.md
+            echo "" >> /tmp/update.md
+            echo '```json' >> /tmp/update.md
+            node -e "console.log(JSON.stringify(require('./package.json').dependencies || {}, null, 2))" >> /tmp/update.md
+            echo '```' >> /tmp/update.md
+          fi
+
+          cat /tmp/update.md >> README.md
+
+      - name: Commit README changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add README.md
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          git commit -m "docs: update README with latest commit"
+          git push
