@@ -34,3 +34,26 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Latest Commit
+
+- **Commit:** Add GitHub Actions workflow to update README
+
+This workflow updates the README file with the latest commit information and installed packages after each push to the master branch.
+- **Author:** temy
+- **Date:** Tue Sep 29 08:27:38 UTC 2026
+
+## Installed Packages
+
+```json
+{
+  "@emotion/react": "^11.14.0",
+  "@emotion/styled": "^11.14.1",
+  "@mui/icons-material": "^9.0.1",
+  "@mui/material": "^9.0.0",
+  "@mui/material-nextjs": "^9.0.1",
+  "next": "^16.2.6",
+  "next-auth": "^4.24.14",
+  "react": "19.2.4",
+  "react-dom": "19.2.4"
+}
+```
